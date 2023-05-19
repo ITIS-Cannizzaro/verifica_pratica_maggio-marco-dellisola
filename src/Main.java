@@ -46,6 +46,7 @@ public class Main extends JFrame implements ActionListener{
 	
 	public void junta() {
 		for(int i; i<l.size(); i++) {
+			//non aggiunge i numeri inseriti nella JTextArea "aggiungi" all'ArrayList "l"!!
 			
 		}
 	}
@@ -66,6 +67,10 @@ public class Main extends JFrame implements ActionListener{
 	
 	public static void main(String[] args) {
 		
+		//Il codice non visualizza la GUI perché non hai chiamato il metodo "funzioni()" qui nel main.
+		
 	}
 	
 }
+
+
