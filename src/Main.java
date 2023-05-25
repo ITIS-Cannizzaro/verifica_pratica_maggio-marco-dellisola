@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Main extends JFrame implements ActionListener{
 	
-	private ArrayList<Integer> l;
+	ArrayList<Integer> l;
 	
 	JTextArea aggiungi= new JTextArea();
 	JTextArea risultato= new JTextArea();
@@ -18,15 +18,19 @@ public class Main extends JFrame implements ActionListener{
 	
 	JLabel Inserisci=new JLabel("Inserisci un numero:");
 	
-	public void funzioni() {
+	public Main() {
+		super("Verifica");
 		
 		l = new ArrayList<>();
 		
 		Container cont=this.getContentPane();
 		cont.setLayout(new FlowLayout());
-		cont.add(Aggiungi);
+		cont.add(Inserisci);
 		cont.add(aggiungi);
-		
+		cont.add(Aggiungi);
+		cont.add(Rimuovi);
+		cont.add(Visualizza);
+		cont.add(risultato);
 		
 		Aggiungi.setHorizontalTextPosition(Aggiungi.LEFT);
 		aggiungi.setPreferredSize(new Dimension(250,20));
@@ -34,43 +38,69 @@ public class Main extends JFrame implements ActionListener{
 		
 		Visualizza.setHorizontalTextPosition(Visualizza.LEFT);
 		risultato.setPreferredSize(new Dimension(250,20));
+		Visualizza.addActionListener(e-> stampa());
 		
 		Rimuovi.setHorizontalTextPosition(Rimuovi.LEFT);
 		Rimuovi.addActionListener(e -> cancella());
 		
-		setSize(400,400);
+		setSize(400,300);
 		setVisible(true);
 		setResizable(false);
 		
 	}
 	
+	public int num(int n) {
+		return (int)l.get(n);
+	}
+	
 	public void junta() {
-		for(int i; i<l.size(); i++) {
-			//non aggiunge i numeri inseriti nella JTextArea "aggiungi" all'ArrayList "l"!!
-			
+		int n=Integer.parseInt(aggiungi.getText());
+		l.add(n);
+		for(int j = 0; j<l.size(); j++) {
+			int f=num(j);
+			if (n<f) {
+				int x=f;
+				l.set(j, n);
+				n=x;
+				j++;
+			}
+			if (n>f)
+				l.set(j, n);
 		}
+		aggiungi.setText("");
+			//non aggiunge i numeri inseriti nella JTextArea "aggiungi" all'ArrayList "l"!!
 	}
 	
 	public void cancella() {
 		
 	}
 	
+	public void stampa() {
+		String k=" ";
+		for(int i=0; i<l.size(); i++)
+		{
+			k=k + l.get(i) + " ";
+		}
+		risultato.setText(k);
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()==Visualizza) {
+		if(e.getSource()==Aggiungi) {
 			junta();
 		}
 		if(e.getSource()==Rimuovi) {
 			cancella();
 		}
+		if(e.getSource()==Visualizza) {
+			stampa();
+		}
 	}
 	
 	public static void main(String[] args) {
-		
+		Main frame =new Main();
 		//Il codice non visualizza la GUI perché non hai chiamato il metodo "funzioni()" qui nel main.
 		
 	}
 	
 }
-
-
